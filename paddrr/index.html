@@ -1,24 +1,25 @@
 <html>
 <head>
-  <link href="style.css" rel="stylesheet" type="text/css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-  <script src="main.js"></script>
+  <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-  <h1>Padddr - select background color, select photo, save photo, profit</h1>
-  <input type="file" id="photo" accept="image/*">
-  <select id="ratio">
-    <option value="4:5">4:5</option>
-    <option value="1:1">1:1</option>
-  </select>
-  <input type="text" id="fill" value="#ffffff" placeholder="fill (#000000, #ffffff, ...)">
-  <canvas id="preview" width="400px" height="300px"></canvas>
-  <img src="about:blank" id="output">
-  <div class="placeholder"></div>
+  <header>
+    <h1>Padddr - select background color, select photo, save photo, profit</h1>
+    <input type="file" id="photo" accept="image/*">
+    <select id="ratio">
+      <option value="4:5">4:5</option>
+      <option value="1:1">1:1</option>
+    </select>
+    <input type="text" id="fill" value="#ffffff" placeholder="fill (#000000, #ffffff, ...)">
+  </header>
+  <main>
+    <canvas id="preview" width="400px" height="300px"></canvas>
+    <img src="about:blank" id="output">
+    <div class="placeholder"></div>
+  </main>
+
+  <script src="main.js"></script>
 </body>
 </html>
