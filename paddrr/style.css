@@ -1,0 +1,36 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  padding: 10px;
+}
+h1 {
+  font-family: sans-serif;
+  font-size: 1em;
+  font-weight: normal;
+}
+canvas {
+  display: none;
+}
+img {
+  max-width: 96vw;
+  display: none;
+}
+img.loaded {
+  display: block;
+}
+.placeholder {
+  width: 96vw;
+  height: calc(96vw * 4 / 5);
+  background: #f7f7f7;
+}
+img, .placeholder {
+  margin: 10px auto;
+  border: 1px solid #ccc;
+}
+
+img.loaded + .placeholder {
+  display: none;
+}
