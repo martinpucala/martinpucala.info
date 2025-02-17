@@ -62,8 +62,8 @@
             requestAnimationFrame(animate);
             let time = new Date().getTime();
 
-            wireframeSphere.rotation.x += 2 * Math.PI/ (15000 / (1000 / 60));
-            wireframeSphere.rotation.z -= 2 * Math.PI / (20000 / (1000 / 60));
+            wireframeSphere.rotation.x = 2 * Math.PI * (time % 60000) / 60000;
+            wireframeSphere.rotation.z = 2 * Math.PI * (time % 900000) / 90000;
 
             const positionAttribute = geometry.attributes.position;
             const vertexGroups = new Array(vertexCount).fill(0).map(() => new Set());
