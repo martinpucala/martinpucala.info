@@ -37,12 +37,13 @@
         scene.add(wireframeSphere);
 
         camera.position.z = 15;
+        camera.position.y = -3;
 
         const meshPosition = new THREE.Vector3();
 
         const originalPositionAttribute = geometry.attributes.position.clone();
         const vertexWobbleEndTimes = new Array(vertexCount).fill(0);
-        const wobbleAmplitude = 0.2;
+        const wobbleAmplitudes = new Array(vertexCount).fill(0);
         const wobbleDuration = 2000;
 
         function animate() {
@@ -82,11 +83,12 @@
             }
 
             for (let i = 0; i < vertexGroups.length; i++) {
-                if (Math.random() < 0.99) {
+                if (Math.random() > 0.005) {
                     continue;
                 }
                 if (vertexWobbleEndTimes[i] < time) {
                     vertexWobbleEndTimes[i] = time + wobbleDuration;
+                    wobbleAmplitudes[i] = Math.random() * 0.333;
                 }
             }
 
@@ -101,7 +103,7 @@
 
                 let distortionCoefficient = 1;
                 if (vertexWobbleEndTimes[i] > time) {
-                    distortionCoefficient += wobbleAmplitude * Math.sin(2 * Math.PI * (vertexWobbleEndTimes[i] - time) / wobbleDuration);
+                    distortionCoefficient += wobbleAmplitudes[i] * Math.sin(2 * Math.PI * (vertexWobbleEndTimes[i] - time) / wobbleDuration);
                 }
                 
                 const wobblePosition = vertex.add(direction.clone().multiplyScalar(distortionCoefficient));
