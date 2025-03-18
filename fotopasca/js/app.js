@@ -64,22 +64,41 @@ const App = ({}) => {
             ref=${containerRef}
         >
             <div class="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-0 p-0 bg-black">
-                ${photos.map((photo, index) => html`
-                    <a
-                        class="aspect-square"
-                        href="${photosRoot}/${photo}"
-                        onClick=${handleThumbnailClick}
-                        ref=${index === 0 ? firstPhotoContainerRef : null}
-                    >
-                        <img
-                            class="w-full h-full object-cover"
-                            style="border: 0.5px solid transparent"
-                            loading="lazy"
-                            src="${photosRoot}/thumbnails/${photo}"
-                            alt=""
-                        />
-                    </a>
-                `)}
+                ${photos.map((() => {
+                    let lastDate = null;
+
+                    return (photo, index) => {
+                        const isDifferentDay = lastDate !== photo.slice(0, 8);
+                        const photoDate = [photo.slice(6, 8).replace(/^0/, ''), photo.slice(4, 6).replace(/^0/, ''), photo.slice(0, 4)].join('.');
+
+                        const result = html`
+                            ${isDifferentDay
+                                ? html`<h2 class="col-span-full text-white text-2xl font-bold my-2 mx-2">${photoDate}</h2>`
+                                : null}
+                            <a
+                                class="inline-block aspect-square relative"
+                                href="${photosRoot}/${photo}"
+                                onClick=${handleThumbnailClick}
+                                ref=${index === 0 ? firstPhotoContainerRef : null}
+                            >
+                                <span class="absolute top-0 right-0 bg-black text-white px-2 py-1 text-2xl">
+                                    ${photo.slice(8).replace(/^(\d{2})(\d{2}).*$/, '$1:$2')}
+                                </span>
+                                <img
+                                    class="w-full h-full object-cover"
+                                    style="border: 0.5px solid transparent"
+                                    loading="lazy"
+                                    src="${photosRoot}/thumbnails/${photo}"
+                                    alt=""
+                                />
+                            </a>
+                        `;
+
+                        lastDate = photo.slice(0, 8);
+
+                        return result;
+                    };
+                })())}
                 ${selectedPhoto // FIXME - remove inline styles
                     ? html`
                         <div class="fixed left-0 top-0 w-full h-full bg-black">
