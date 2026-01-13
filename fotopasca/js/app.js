@@ -64,7 +64,11 @@ const App = ({}) => {
             ref=${containerRef}
         >
             <div class="grid grid-cols-[repeat(auto-fill,_minmax(100px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(200px,_1fr))] gap-0 p-0 bg-black">
-                ${photos.map((() => {
+                ${photos.sort((a, b) => {
+                    const [dateA, timeA] = a.slice(0, 14).match(/.{1,8}/g)
+                    const [dateB, timeB] = b.slice(0, 14).match(/.{1,8}/g)
+                    return +dateB - +dateA || +timeA - +timeB;
+                }).map((() => {
                     let lastDate = null;
 
                     return (photo, index) => {
